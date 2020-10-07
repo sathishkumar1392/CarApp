@@ -9,7 +9,7 @@ abstract class MapBaseFragment : BaseFragment(), OnMapReadyCallback {
 
     private var gMap: GoogleMap? = null
     private var map: MapView? = null
-    private val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
+
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -54,10 +54,7 @@ abstract class MapBaseFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap?) {
         gMap = googleMap
-        onMapSetReady(googleMap)
     }
-
-    abstract  fun onMapSetReady(googleMap: GoogleMap?)
 
 
     protected open fun setUpMap(savedInstanceState: Bundle?, map: MapView) {
@@ -74,5 +71,9 @@ abstract class MapBaseFragment : BaseFragment(), OnMapReadyCallback {
         return gMap
     }
 
+
+    companion object {
+        private val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
+    }
 
 }

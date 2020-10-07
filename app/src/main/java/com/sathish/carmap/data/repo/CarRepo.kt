@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface CarRepo {
 
-    @GET(EndPointPath.cars.TAG_CARS)
+    @GET(EndPointPath.Cars.TAG_CARS)
     suspend fun getCarsList(): CarResponseApi
 }

@@ -7,5 +7,4 @@ abstract class BaseViewModel : ViewModel() {
 
     val errorMessage: MutableLiveData<String> = MutableLiveData()
 
-    val successMessage: MutableLiveData<String> = MutableLiveData()
 }

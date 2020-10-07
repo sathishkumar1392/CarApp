@@ -15,6 +15,11 @@
             android:id="@+id/action_distance"
             android:title="@string/str_car_sort_by_distance_from_user"
             />
+
+        <item
+            android:id="@+id/action_resetList"
+            android:title="@string/str_reset_list"
+            />
     </group>
 
 </menu>

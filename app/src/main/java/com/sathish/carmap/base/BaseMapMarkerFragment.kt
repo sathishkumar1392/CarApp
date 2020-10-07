@@ -2,7 +2,6 @@ package com.sathish.carmap.base
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.location.Address
 import android.location.Location
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -51,14 +50,15 @@ abstract class BaseMapMarkerFragment : MapBaseFragment() {
         )
     }
 
-     internal fun updateUserLocation(userLocation: Location) {
+    internal fun updateUserLocation(userLocation: Location) {
+
         userMarker?.remove()
         val markerOptions = MarkerOptions()
         val ny = LatLng(userLocation.altitude, userLocation.longitude)
         markerOptions.position(ny)
         val marker = getMap()!!.addMarker(markerOptions)
-        marker.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
         userMarker = marker
+
     }
 
 

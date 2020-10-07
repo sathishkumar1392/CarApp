@@ -1,5 +1,6 @@
+package com.sathish.carmap.utils
+
 import com.sathish.carmap.data.repo.Result
-import com.sathish.carmap.utils.ErrorResponse
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

@@ -16,6 +16,7 @@ class CarListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateView(
@@ -52,6 +53,11 @@ class CarListFragment : BaseFragment() {
 
             R.id.action_distance -> {
                 carListViewModel.sortByDistance()
+                return true
+            }
+
+            R.id.action_resetList -> {
+                carListViewModel.resetList()
                 return true
             }
 

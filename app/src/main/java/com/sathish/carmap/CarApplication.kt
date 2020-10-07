@@ -1,13 +1,8 @@
 package com.sathish.carmap
 
-import android.Manifest
 import android.app.Application
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.sathish.carmap.di.networkModule
 import com.sathish.carmap.di.viewModelModule
-import com.sathish.carmap.view.map.MapFragment
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

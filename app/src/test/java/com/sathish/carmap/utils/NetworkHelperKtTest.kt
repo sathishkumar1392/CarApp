@@ -4,7 +4,6 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
 import org.junit.Test
-import safeApiCall
 import java.io.IOException
 import com.sathish.carmap.data.repo.Result
 import kotlinx.coroutines.ExperimentalCoroutinesApi

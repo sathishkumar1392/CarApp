@@ -1,16 +1,15 @@
 package com.sathish.carmap.data.repo
 
 import com.sathish.carmap.data.model.CarResponseApi
+import com.sathish.carmap.data.repo.Result
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
-import com.sathish.carmap.data.repo.Result
 
 @ExperimentalCoroutinesApi
 class CarRepoImplTest {
@@ -24,7 +23,7 @@ class CarRepoImplTest {
 
 
     @After
-    fun `cleanup`() {
+    fun cleanup() {
         testDispatcher.cleanupTestCoroutines()
     }
 

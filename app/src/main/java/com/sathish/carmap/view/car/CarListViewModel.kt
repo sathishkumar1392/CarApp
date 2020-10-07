@@ -25,15 +25,15 @@ class CarListViewModel(
     private val markerLiveData: MutableLiveData<List<CarResponseApiItem>>? = MutableLiveData()
 
     private var carList: MutableList<CarResponseApiItem> = ArrayList<CarResponseApiItem>()
+    private var sortingList: MutableList<CarResponseApiItem> = ArrayList<CarResponseApiItem>()
     private val carLiveData: MutableLiveData<List<CarResponseApiItem>>? = MutableLiveData()
 
 
-
-   /* init {
+    init {
         getMarkerData()
-    }*/
+    }
 
-     fun getMarkerData() {
+    fun getMarkerData() {
         viewModelScope.launch {
             when (val response = repository.getCarsList()) {
                 is Result.Success -> showSuccess(response.value)
@@ -49,6 +49,7 @@ class CarListViewModel(
         withContext(Dispatchers.Main) {
             carList = result
             markerList = result
+            sortingList = result
             markerLiveData?.postValue(markerList)
             carLiveData?.postValue(carList)
         }
@@ -74,11 +75,10 @@ class CarListViewModel(
     }
 
 
-
     internal fun sortByNumberPlate() {
         if (carList.isNotEmpty()) {
-            val sortedByNumberPlate = carList.sortedBy {
-                it.plateNumber
+            val sortedByNumberPlate = sortingList.sortedBy { sort ->
+                sort.plateNumber
 
             }
             carLiveData?.postValue(sortedByNumberPlate)
@@ -86,9 +86,10 @@ class CarListViewModel(
     }
 
     internal fun sortByBattery() {
+
         if (carList.isNotEmpty()) {
-            val sortedByBattery = carList.sortedBy {
-                it.batteryPercentage
+            val sortedByBattery = sortingList.sortedBy { sort ->
+                sort.batteryPercentage
 
             }
             carLiveData?.postValue(sortedByBattery)
@@ -97,11 +98,18 @@ class CarListViewModel(
 
     internal fun sortByDistance() {
         if (carList.isNotEmpty()) {
-            val sortedByDistance = carList.sortedBy {
-                it.batteryEstimatedDistance
+            val sortedByDistance = sortingList.sortedBy { sort ->
+                sort.batteryEstimatedDistance
             }
             carLiveData?.postValue(sortedByDistance)
         }
     }
+
+    internal fun resetList() {
+        if (carList.isNotEmpty()) {
+            carLiveData?.postValue(carList)
+        }
+    }
+
 
 }

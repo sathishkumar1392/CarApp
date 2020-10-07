@@ -3,7 +3,7 @@ package com.sathish.carmap.data.repo
 import com.sathish.carmap.data.model.CarResponseApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import safeApiCall
+import com.sathish.carmap.utils.safeApiCall
 
 class CarRepoImpl(
     private val repo: CarRepo,
