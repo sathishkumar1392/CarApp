@@ -1,5 +1,6 @@
 package com.sathish.carmap.utils
 
+import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -13,3 +14,13 @@ fun setImageUrl(view: ImageView, imageUrl: String) {
     }
 }
 
+
+@BindingAdapter("visible")
+fun progressVisibility(view: View, visibleStatus: Boolean) = when {
+    visibleStatus -> {
+        view.visibility = View.VISIBLE
+    }
+    else -> {
+        view.visibility = View.GONE
+    }
+}

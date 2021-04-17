@@ -22,7 +22,7 @@ class CarListFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCarListBinding.inflate(inflater, container, false)
         binding.viewModel = carListViewModel
         binding.adapter = adapter
@@ -43,21 +43,22 @@ class CarListFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_plateNumber -> {
-                carListViewModel.sortByNumberPlate()
+                carListViewModel.listFilter(getString(R.string.str_car_plateNumber))
+                println("Item Id : $item.itemId")
                 return true
             }
             R.id.action_battery -> {
-                carListViewModel.sortByBattery()
+                carListViewModel.listFilter(getString(R.string.str_car_remaining_battery))
                 return true
             }
 
             R.id.action_distance -> {
-                carListViewModel.sortByDistance()
+                carListViewModel.listFilter(getString(R.string.str_car_sort_by_distance_from_user))
                 return true
             }
 
             R.id.action_resetList -> {
-                carListViewModel.resetList()
+                carListViewModel.listFilter(getString(R.string.str_reset_list))
                 return true
             }
 
@@ -70,9 +71,15 @@ class CarListFragment : BaseFragment() {
     private fun setObserver() {
 
         carListViewModel.getCarLiveData()?.observe(viewLifecycleOwner, {
-            adapter.update(it)
-
+            it?.let {
+                adapter.submitList(it)
+            }
         })
+
+
+        carListViewModel.getIsLoading()
+            .observe(viewLifecycleOwner) { aBoolean -> binding.visibility = aBoolean }
+
     }
 
 

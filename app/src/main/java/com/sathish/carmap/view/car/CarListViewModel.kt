@@ -22,11 +22,11 @@ class CarListViewModel(
 
 
     private var markerList: MutableList<CarResponseApiItem> = ArrayList<CarResponseApiItem>()
-    private val markerLiveData: MutableLiveData<List<CarResponseApiItem>>? = MutableLiveData()
+    private val markerLiveData: MutableLiveData<List<CarResponseApiItem>> = MutableLiveData()
 
     private var carList: MutableList<CarResponseApiItem> = ArrayList<CarResponseApiItem>()
     private var sortingList: MutableList<CarResponseApiItem> = ArrayList<CarResponseApiItem>()
-    private val carLiveData: MutableLiveData<List<CarResponseApiItem>>? = MutableLiveData()
+    private val carLiveData: MutableLiveData<List<CarResponseApiItem>> = MutableLiveData()
 
 
     init {
@@ -35,13 +35,14 @@ class CarListViewModel(
 
     fun getMarkerData() {
         viewModelScope.launch {
+            isLoading.postValue(true)
             when (val response = repository.getCarsList()) {
                 is Result.Success -> showSuccess(response.value)
                 is Result.NetworkError -> showNetworkError()
                 is Result.GenericError -> showGenericError(response)
             }
         }
-
+        isLoading.postValue(false)
     }
 
 
@@ -75,41 +76,37 @@ class CarListViewModel(
     }
 
 
-    internal fun sortByNumberPlate() {
-        if (carList.isNotEmpty()) {
-            val sortedByNumberPlate = sortingList.sortedBy { sort ->
-                sort.plateNumber
+   internal fun listFilter(name: String) {
+        when (name) {
+            res.getString(R.string.str_car_plateNumber) -> {
+                val sortedByNumberPlate = sortingList.sortedBy { sort ->
+                    sort.plateNumber
 
+                }
+                carLiveData?.postValue(sortedByNumberPlate)
             }
-            carLiveData?.postValue(sortedByNumberPlate)
-        }
-    }
+            res.getString(R.string.str_car_remaining_battery) -> {
+                val sortedByBattery = sortingList.sortedBy { sort ->
+                    sort.batteryPercentage
 
-    internal fun sortByBattery() {
-
-        if (carList.isNotEmpty()) {
-            val sortedByBattery = sortingList.sortedBy { sort ->
-                sort.batteryPercentage
-
+                }
+                carLiveData?.postValue(sortedByBattery)
             }
-            carLiveData?.postValue(sortedByBattery)
-        }
-    }
 
-    internal fun sortByDistance() {
-        if (carList.isNotEmpty()) {
-            val sortedByDistance = sortingList.sortedBy { sort ->
-                sort.batteryEstimatedDistance
+            res.getString(R.string.str_car_sort_by_distance_from_user) -> {
+                val sortedByDistance = sortingList.sortedBy { sort ->
+                    sort.batteryEstimatedDistance
+                }
+                carLiveData?.postValue(sortedByDistance)
             }
-            carLiveData?.postValue(sortedByDistance)
-        }
-    }
 
-    internal fun resetList() {
-        if (carList.isNotEmpty()) {
-            carLiveData?.postValue(carList)
-        }
-    }
+            res.getString(R.string.str_reset_list) -> {
+                carLiveData?.postValue(carList)
+            }
 
+        }
+
+
+    }
 
 }
