@@ -72,7 +72,7 @@ class CarListFragment : BaseFragment() {
 
         carListViewModel.getCarLiveData()?.observe(viewLifecycleOwner, {
             it?.let {
-                adapter.submitList(it)
+                adapter.differ.submitList(it)
             }
         })
 
